@@ -5,26 +5,33 @@
 
 int main(int argc, int * argv[]){
 
+	FILE * f = fopen(argv[1], "r+"); //open file
 
-	FILE * f = fopen(argv[1], O_RDONLY); //open file
-
-	char ** instructions = malloc(sizeof(char *) * 1000); //allocate instruction memory
+	char ** instructions = (char **) malloc(sizeof(char *) * 1000); //allocate instruction memory
 	for(int i = 0; i < 1000; i++){
-		instructions[i] = malloc(64);
+		instructions[i] = (char *) malloc(sizeof(char) * 64);
 	}
 
-	while( fgets(instructions[i], sizeof(instructions[i]), f) ){} //read instructions from file into instruction memory
+	char * buf = malloc(sizeof(char) * 64);
+	int i = 0;
+	int linesize = 0;
+	while( (linesize = getline( &buf, &bufsize, f)) ){ //read instructions from file into instruction memory
+		buf[linesize -1 ] = 0;
+		strcpy(instructions[i], buf);
+		i++;
+	}
 
 	//execution
-	pc = 0; //program counter
-	char currinst[64]; //current instruction
-	void * dmem = malloc(64000); //allocate data memory
+	pc = 0;
+	char * currinst = malloc(sizeof(char) * 64);
+	void * dmem = malloc(64000);
 
 	for(;;){
 		currinst = instructions[pc++];
-		switch(currinst){
-			
+
+		if( (strcmpn(currinst, "add"), 3) == 0){
+			char ** regbuf = malloc(sizeof(char *) * 4);
+			readreg()
 		}
 	}
-
 }
